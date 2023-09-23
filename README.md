@@ -160,6 +160,8 @@ We can persit env vars in Gitpod by storing them in Gitpod Secrets storage.
 
 ```
 gp env HELLO='world'
+```
+
 
 All future workspaces launched will set the set the env vars for all bash terminals opened in those workspaces.
 
@@ -173,6 +175,37 @@ AWS CLI is installed for the project via the bash script ['./bin/install_aws_cli
 
 [Getting Started Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
+
+#### AWS Env Vars
+
+The AWS Env Vars are set in the bash script ['/bin/.env.example'](/bin/.env.example)
+
+```sh
+AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+AWS_DEFAULT_REGION=us-west-2
+```
+
+The AWS Env Vars are set are also set using the terminal, using the export command as well as the gp env command. 
+
+```bash
+$ export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+$ export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+$ export AWS_DEFAULT_REGION=us-west-2
+```
+
+```bash
+$ gp env AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+$ gp env AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+$ gp env AWS_DEFAULT_REGION=us-west-2
+```
+
+
+[Environment variables to configure the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
+
+
+
+##### AWS Credentials 
 
 We can check if our aws credentials is configured correctly by running the following AWS CLI command:
 
@@ -195,4 +228,3 @@ We'll need to generate AWS CLI credits from IAM user in order to use the AWS CLI
 
 
 
-[Environment variables to configure the AWS CLI] https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
