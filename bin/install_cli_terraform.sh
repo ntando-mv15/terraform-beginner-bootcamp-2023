@@ -20,4 +20,4 @@ sudo apt update
 
 sudo apt-get install terraform -y
 
-cd $THEIA_WORKSPACE_R
+cd $THEIA_WORKSPACE_ROOT
