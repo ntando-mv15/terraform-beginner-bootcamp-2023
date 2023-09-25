@@ -332,3 +332,8 @@ Then open the file and replace the following with your token:
 }
 ```
 
+The process of terraform login has been with the following script from ChatGPT [/bin/generate_trfc_credentials](/bin/generate_trfc_credentials)
+
+The Terraform Login env var has been added to the following file [.env.example](.env.example)
+
+We also added the source of the following file [.gitpod.yml](.gitpod.yml)
