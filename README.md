@@ -17,14 +17,14 @@ General format:
 
 ### Considerations with the Terraform CLI changes 
 
-The Terraform CLI Installation instructions have changed due to gpg keyring changes. So we needed to refer to the latest install CLI instructions avia the documentation and change the scripting for install.
+The Terraform CLI Installation instructions have changed due to gpg keyring changes. So we needed to refer to the latest install CLI instructions via the documentation and change the scripting for install.
 
 [Install Terraform ](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 
 ### Considerations for Linux Distribution
 
-This project is built aginst Ubuntu. 
-Please consider checking your Linux Distribution and change accordingly to the dstributions needs. 
+This project is built against Ubuntu. 
+Please consider checking your Linux Distribution and change accordingly to the distributions needs. 
 
 [How to Check OS Version in Linux](https://www.howtogeek.com/206240/how-to-tell-what-distro-and-version-of-linux-you-are-running/)
 
@@ -50,14 +50,14 @@ UBUNTU_CODENAME=jammy
 
 ### Refactoring into Bash Scripts
 
-While fixing the Terrafrom CLI gpg depreciation issues we noticed that bash scripts steps were a considerable amount more code.  
+While fixing the Terraform CLI gpg depreciation issues we noticed that bash scripts steps were a considerable amount more code.  
 so we decided to create a bash  script to install the Terraform CLI. 
 
 This bash script is located here: [/bin/install_cli_terraform.sh](/bin/install_cli_terraform.sh)
 
 - This will keep the Gitpod Task File ([.gitpod.yml](.gitpod.yml)) tidy . 
 - This will allow us an easier debug and execute manually Terraform CLI install.
-- This will allow better portability for othern projects who want to install CLI. 
+- This will allow better portability for other projects who want to install CLI. 
 
 ### Shebang 
 
@@ -68,8 +68,8 @@ A Shebang tells the bash script what program will interpret the script.
 
 ChatGPT recommended we use this format for 
 
-- portability for different OS distibutions
-- will search the usre's  PATH for the bash executable
+- portability for different OS distributions
+- will search the user's  PATH for the bash executable
 
 [Learning about Shebang](https://en.wikipedia.org/wiki/Shebang_(Unix))https://www.howtogeek.com/437958/
 
@@ -85,7 +85,7 @@ eg. `source ./bin/bin/install_cli_terraform.sh`
 
 ### Linux Permissions 
 
-In order to make our bash scripts executable, we beed to change linux permissions for the fix to be executable at user mode. 
+In order to make our bash scripts executable, you need to change linux permissions for the fix to be executable at user mode. 
 
 ```sh
 $ chmod u+x ./bin/install_cli_terraform.sh
@@ -112,16 +112,16 @@ We need to be careful when using the Init because it will not rerun if we start 
 
 #### env command
 
-We can list all envaironment variables using the env commmands
+We can list all environment variables using the env commands
 
 We can filter specific env vars using grep 
- eg. 'env | grep AWS'
+ eg. `env | grep AWS`
 
  #### Setting Environment Variables
 
- In the terminal we can set using 'export HELLO='world'
+ In the terminal we can set using `export HELLO='world'`
 
- In the terminal we can unset using 'unset HELLO'
+ In the terminal we can unset using `unset HELLO`
 
  We can set an env var temporarily when just running a command 
 
@@ -145,7 +145,7 @@ echo $HELLO
 
 #### Printing Env Vars
 
-We can print an env var using echo eg. 'echo $HELLO'
+We can print an env var using echo eg. `echo $HELLO`
 
 #### Scoping of Env Vars
 
@@ -156,7 +156,7 @@ eg. '.bash_profile'
 
 #### Persisting Env Vars in Gitpod
 
-We can persit env vars in Gitpod by storing them in Gitpod Secrets storage.
+We can persist env vars in Gitpod by storing them in Gitpod Secrets storage.
 
 ```
 gp env HELLO='world'
@@ -171,14 +171,14 @@ You can also set env vars in the .gitpod.yml but this can only contain non-sensi
 
 ### AWS CLI Installation
 
-AWS CLI is installed for the project via the bash script ['./bin/install_aws_cli'](./bin/install_aws_cli)
+AWS CLI is installed for the project via the bash script [./bin/install_aws_cli](./bin/install_aws_cli)
 
 [Getting Started Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 
 #### AWS Env Vars
 
-The AWS Env Vars are set in the bash script ['/bin/.env.example'](/bin/.env.example)
+The AWS Env Vars are set in the bash script [/bin/.env.example](/bin/.env.example)
 
 ```sh
 AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
@@ -228,3 +228,71 @@ We'll need to generate AWS CLI credits from IAM user in order to use the AWS CLI
 
 
 
+# Terraform Basics
+
+### Terraform Registry
+
+Terraform sources their providers and modules from the Terraform Registry, which is locates at 
+[https://registry.terraform.io/](https://registry.terraform.io/)
+
+- **Providers** is an interface to APIs that will allow you to create resources in terraform. They are responsible for understanding the API and configuration settings of the target infrastructure (eg. any AWS infrastructure), enabling Terraform to create, update, and delete resources in that environment.
+
+- Modules are a way to make large amounts of terraform code modular, portable and sharable.
+
+
+### Terraform Console
+
+We can see a list of all the Terraform commands by typing `terraform`.
+
+### Terraform Init
+
+At the start of a new project, you need to run 'terraform init' to download the binaries for the terraform providers that we will use in this project. 
+
+[Random Terraform Provider](https://registry.terraform.io/providers/hashicorp/random/)
+
+
+### Terraform Plan 
+
+`terraform plan`
+
+This will generate a changeset (a changeset in IaC is a file that is created that stipulates the current state of your resources, and what will be changed).
+
+We can output this changeset  ie. "plan" to be passed to an apply, but often you can just ignore outputting. 
+
+You use the following command: 
+
+```bash
+
+terraform output random_bucket_name
+```
+
+### Terraform Apply 
+
+`terraform apply`
+
+This will run a plan and pass the change set to be executed by terraform. Apply should prompt us yes or no. 
+
+If we want to auto approve an apply we can provide the auto approve flag 
+eg. `terraform apply --auto-approve`
+
+
+### Terraform Lock Files
+
+`.terraform.lock.hcl` contains the locked versioning for the providers or modules that should be used with this project.
+
+It should be committed to your Version Control System (i.e Github). 
+
+
+### Terraform State Files
+
+`.terraform.tfstate` contains information about the current state of your infrastructure. 
+
+This file **should not be committed** to your Version Control system. 
+
+It can contain sensitive data, if you lose this file you will lose knowing the state of your infrastructure.
+
+`.terraform.tfstate.backup` is the previous file state.
+
+### Terraform Directory
+
+`.terraform` directory contains binaries of terraform providers. 
