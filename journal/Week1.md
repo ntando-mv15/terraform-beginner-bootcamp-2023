@@ -87,3 +87,26 @@ variable "region" {
 ```
 
 If no other value is provided through higher-precedence sources, Terraform will use "us-east-1" as the value for region.
+
+## Dealing with Configuration Drift
+
+## What happens if you lose your state file?
+
+If you lose your statefile, you most likely have to tear down all your cloud infrastructure manually.
+
+You can use the Terraform port but it wont work for all cloud resources. You need to check the terraform providers documentation for which resources support import. 
+
+### Fix Missing Resources with Terraform Import
+
+`terraform import aws_s3_bucket.website_bucket`
+
+[Terraform Import](https://developer.hashicorp.com/terraform/cli/import)
+[AWS S3 Bucket Import](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket)
+
+
+### Fix Manual Configuration
+
+If someone goes and deletes or modifies cloud resource (eg.s3 bucket) manually through ClickOps on the console. 
+
+If we run Terraform plan is with attempt to ut our infrastructure back into the expected state fixing Configuration Drift. 
+ 
