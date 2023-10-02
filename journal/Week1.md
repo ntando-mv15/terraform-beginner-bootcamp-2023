@@ -94,7 +94,8 @@ If no other value is provided through higher-precedence sources, Terraform will 
 
 If you lose your statefile, you most likely have to tear down all your cloud infrastructure manually.
 
-You can use the Terraform port but it wont work for all cloud resources. You need to check the terraform providers documentation for which resources support import. 
+You can use the Terraform port but it wont work for all cloud resources. You need to check the terraform providers documentation for which resources support import.
+
 
 ### Fix Missing Resources with Terraform Import
 
@@ -110,3 +111,43 @@ If someone goes and deletes or modifies cloud resource (eg.s3 bucket) manually t
 
 If we run Terraform plan is with attempt to ut our infrastructure back into the expected state fixing Configuration Drift. 
  
+ ## Fix using Terraform Refresh 
+
+```sh
+terraform apply -refresh-only -auto-approve
+```
+
+ ## Terraform Modules
+
+ ### Terraform Module Structure 
+
+It is recommended to place a `modules`` directory when we are developing modules and name it whatever you like. 
+eg. `modules`
+
+ ### Passing Input Variables
+
+We can pass input variables to our module. The module has to declare these Terraform in its own variables.tf. 
+
+  ```tf
+ module "terrahouse_aws" {
+  source = "./modules/terrahouse_aws"
+  user_uuid = var.user_uuid
+  bucket_name = var.bucket_name
+}
+```
+ 
+ 
+ ### Module Sources 
+
+ Using the source, we can import the module from various place eg. 
+ - locally 
+ - github 
+ - Terraform Registry
+
+ ```tf
+ module "terrahouse_aws" {
+  source = "./modules/terrahouse_aws"
+  user_uuid = var.user_uuid
+  bucket_name = var.bucket_name
+}
+```
