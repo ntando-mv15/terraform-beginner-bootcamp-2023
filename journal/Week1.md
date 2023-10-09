@@ -1,5 +1,31 @@
 # Terraform Beginner Bootcamp 2023 - Week 1
 
+## Fixing Tags 
+
+[How Delete Local and Remote Tags](https://devconnected.com/how-to-delete-local-and-remote-tags-on-git/)
+
+Locally dlt tag:
+
+```sh
+$ git tag -d <tag_name>
+```
+
+Remotely dlt tag:
+
+```sh
+$ git push --delete origin <tagname>
+```
+
+Checkout the commit that you want to re-tag. Grab the sha from your github history.
+
+```sh
+git checkout <sha>
+git tag <tag name>
+git push --tags
+git checkout main
+```
+
+If you have uncommited files, save them using `git stash`. 
 ## Root Module Structure 
 
 
