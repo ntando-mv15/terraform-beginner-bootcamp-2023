@@ -151,3 +151,20 @@ We can pass input variables to our module. The module has to declare these Terra
   bucket_name = var.bucket_name
 }
 ```
+
+[Standard Module Structure](https://developer.hashicorp.com/terraform/language/modules/develop/structure)
+
+## Considerations when using Chatgpt to write Terraform
+
+LLMs such as Chatgpt may not be trained on the latest documentation or information about Terraform. 
+
+It may likely produce older examples that could be deprecated. Often affecting providers.
+
+## Working with Files in Terraform 
+
+In terraform, there is a special variable called path that allows us to ref local paths. 
+
+- path.module = get the path for the current module
+- path.root = get the path for the root module 
+
+[Special Path Variable/Reference](https://developer.hashicorp.com/terraform/language/expressions/references)
