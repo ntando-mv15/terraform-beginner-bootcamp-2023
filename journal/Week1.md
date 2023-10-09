@@ -162,9 +162,38 @@ It may likely produce older examples that could be deprecated. Often affecting p
 
 ## Working with Files in Terraform 
 
+### File exists function 
+
+This is a built in Terraform function to check existence of a file. 
+
+```tf
+  validation {
+    condition     = fileexists(var.index_html_filepath)
+    error_message = "The provided index.html path does not exist or is not a valid file."
+  }
+}
+```
+
+ https://developer.hashicorp.com/terraform/language/functions/fileexists
+### filemd5 function
+
+  The filemd5() function is available in Terraform 0.11.12 and later
+  For Terraform 0.11.11 and earlier, use the md5() function and the file() function:
+
+```tf
+
+   etag = filemd5(var.index_html_filepath)
+```
+
+https://developer.hashicorp.com/terraform/language/functions/filemd5
+
+### Path Variable 
+
 In terraform, there is a special variable called path that allows us to ref local paths. 
 
 - path.module = get the path for the current module
 - path.root = get the path for the root module 
 
 [Special Path Variable/Reference](https://developer.hashicorp.com/terraform/language/expressions/references)
+
+## 
